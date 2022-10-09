@@ -33,6 +33,7 @@
 		428B06A428F3323B0029E516 /* DeviceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCard.swift; sourceTree = "<group>"; };
 		428B06A628F3325B0029E516 /* RoomDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDetailView.swift; sourceTree = "<group>"; };
 		428B06A828F3326A0029E516 /* ItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
+		42F8F1F828F394960099892C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +50,7 @@
 		421A8CC628F1D4250085A06B = {
 			isa = PBXGroup;
 			children = (
+				42F8F1F828F394960099892C /* README.md */,
 				421A8CD128F1D4260085A06B /* iPadSplitViewTesting */,
 				421A8CD028F1D4260085A06B /* Products */,
 			);
