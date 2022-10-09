@@ -11,6 +11,13 @@
 		421A8CD528F1D4260085A06B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 421A8CD428F1D4260085A06B /* ContentView.swift */; };
 		421A8CD728F1D4270085A06B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 421A8CD628F1D4270085A06B /* Assets.xcassets */; };
 		421A8CDA28F1D4270085A06B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 421A8CD928F1D4270085A06B /* Preview Assets.xcassets */; };
+		428B069A28F330D80029E516 /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428B069928F330D80029E516 /* SidebarView.swift */; };
+		428B069F28F331420029E516 /* SplitDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428B069E28F331420029E516 /* SplitDetailView.swift */; };
+		428B06A128F331590029E516 /* SidebarRoomsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428B06A028F331590029E516 /* SidebarRoomsView.swift */; };
+		428B06A328F331D30029E516 /* SidebarSectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428B06A228F331D30029E516 /* SidebarSectionHeader.swift */; };
+		428B06A528F3323B0029E516 /* DeviceCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428B06A428F3323B0029E516 /* DeviceCard.swift */; };
+		428B06A728F3325B0029E516 /* RoomDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428B06A628F3325B0029E516 /* RoomDetailView.swift */; };
+		428B06A928F3326A0029E516 /* ItemDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428B06A828F3326A0029E516 /* ItemDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +26,13 @@
 		421A8CD428F1D4260085A06B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		421A8CD628F1D4270085A06B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		421A8CD928F1D4270085A06B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		428B069928F330D80029E516 /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		428B069E28F331420029E516 /* SplitDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitDetailView.swift; sourceTree = "<group>"; };
+		428B06A028F331590029E516 /* SidebarRoomsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarRoomsView.swift; sourceTree = "<group>"; };
+		428B06A228F331D30029E516 /* SidebarSectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarSectionHeader.swift; sourceTree = "<group>"; };
+		428B06A428F3323B0029E516 /* DeviceCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceCard.swift; sourceTree = "<group>"; };
+		428B06A628F3325B0029E516 /* RoomDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomDetailView.swift; sourceTree = "<group>"; };
+		428B06A828F3326A0029E516 /* ItemDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +65,8 @@
 		421A8CD128F1D4260085A06B /* iPadSplitViewTesting */ = {
 			isa = PBXGroup;
 			children = (
+				428B069828F330C60029E516 /* Sidebar */,
+				428B069B28F331200029E516 /* Detail */,
 				421A8CD228F1D4260085A06B /* iPadSplitViewTestingApp.swift */,
 				421A8CD428F1D4260085A06B /* ContentView.swift */,
 				421A8CD628F1D4270085A06B /* Assets.xcassets */,
@@ -65,6 +81,43 @@
 				421A8CD928F1D4270085A06B /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		428B069828F330C60029E516 /* Sidebar */ = {
+			isa = PBXGroup;
+			children = (
+				428B069928F330D80029E516 /* SidebarView.swift */,
+				428B06A028F331590029E516 /* SidebarRoomsView.swift */,
+				428B06A228F331D30029E516 /* SidebarSectionHeader.swift */,
+			);
+			path = Sidebar;
+			sourceTree = "<group>";
+		};
+		428B069B28F331200029E516 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				428B069D28F3312B0029E516 /* Accessory */,
+				428B069C28F331250029E516 /* Room */,
+				428B069E28F331420029E516 /* SplitDetailView.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		428B069C28F331250029E516 /* Room */ = {
+			isa = PBXGroup;
+			children = (
+				428B06A628F3325B0029E516 /* RoomDetailView.swift */,
+				428B06A428F3323B0029E516 /* DeviceCard.swift */,
+			);
+			path = Room;
+			sourceTree = "<group>";
+		};
+		428B069D28F3312B0029E516 /* Accessory */ = {
+			isa = PBXGroup;
+			children = (
+				428B06A828F3326A0029E516 /* ItemDetailView.swift */,
+			);
+			path = Accessory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +190,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				428B06A128F331590029E516 /* SidebarRoomsView.swift in Sources */,
 				421A8CD528F1D4260085A06B /* ContentView.swift in Sources */,
+				428B06A728F3325B0029E516 /* RoomDetailView.swift in Sources */,
+				428B06A928F3326A0029E516 /* ItemDetailView.swift in Sources */,
 				421A8CD328F1D4260085A06B /* iPadSplitViewTestingApp.swift in Sources */,
+				428B069F28F331420029E516 /* SplitDetailView.swift in Sources */,
+				428B069A28F330D80029E516 /* SidebarView.swift in Sources */,
+				428B06A328F331D30029E516 /* SidebarSectionHeader.swift in Sources */,
+				428B06A528F3323B0029E516 /* DeviceCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -287,7 +347,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -319,7 +379,7 @@
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
