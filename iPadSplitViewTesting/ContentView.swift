@@ -74,7 +74,7 @@ struct ScenesView: View {
                         }
                         
                         Image(systemName: icon)
-                            .font(.headline)
+                            .font(.title3)
                             .foregroundColor(active ? .white : Color("IconPrimary"))
                     }
                     Text(name)
@@ -141,10 +141,10 @@ struct ContentView: View {
     
     var body: some View {
         
-        NavigationSplitView(columnVisibility: $columnVisibility) {
+        NavigationSplitView(columnVisibility: .constant(.all)) {
             NavigationStack {
                 ScrollView {
-                    
+
                     Section() {
                         ScenesView()
                         Divider()
@@ -184,60 +184,148 @@ struct ContentView: View {
                 }
             }
         } detail: {
-            SplitDetailView()
+            SplitDetailView(columnVisibility: $columnVisibility)
+
         }
+
     }
 }
 
 struct SplitDetailView: View {
+
+    @Binding var columnVisibility: NavigationSplitViewVisibility
+
     var body: some View {
         GeometryReader { geometry in
             let viewWidth = geometry.size.width
             HStack(spacing: 0) {
                 
-                RoomDetialView()
-                    .frame(width: viewWidth*1/2)
+                RoomDetialView(columnVisibility: $columnVisibility.animation(.spring()))
+                    .frame(width: viewWidth*1/2, height: geometry.size.height)
                 Divider()
+                    .ignoresSafeArea()
                     .frame(maxHeight: .infinity )
                 ItemDetailView()
                     .frame(width: viewWidth*1/2)
             }
 
         }
-//        .ignoresSafeArea()
     }
 }
 
 struct RoomDetialView: View {
-    var body: some View {
-        ZStack{
-            Rectangle()
-                .foregroundColor(Color("MainBackground"))
-                .ignoresSafeArea()
-            VStack(spacing: 0) {
-                Text("Living Room")
-                    .font(.largeTitle.bold())
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                ScrollView {
-                    Spacer()
-                        .frame(height: 15)
-                    Rectangle()
-                        .frame(height: 300)
-//                    .frame(maxWidth: .infinity, maxHeight: .infinity)
-                }
-            }
-            .padding()
 
+    @Binding var columnVisibility: NavigationSplitViewVisibility
+    private var isBig: Bool {
+        columnVisibility == .detailOnly
+    }
+
+    var body: some View {
+        GeometryReader { geo in
+            ZStack{
+                Rectangle()
+                    .foregroundColor(Color("MainBackground"))
+                    .ignoresSafeArea()
+                VStack(spacing: 0) {
+                    Text("Living Room")
+                        .font(.largeTitle.bold())
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .padding(.bottom, 10)
+                    ScrollView(showsIndicators: false) {
+                        HStack {
+                            Text("Accessories")
+                                .fontWeight(.medium)
+                            Spacer()
+                            Button{} label: {
+                                Image(systemName: "ellipsis")
+                                    .foregroundColor(Color("IconPrimary"))
+                            }
+                        }
+                        
+                        var height3 = abs(geo.size.width/3-16)
+                        let height4 = abs(geo.size.width/4-16)
+                        Grid(horizontalSpacing: 12, verticalSpacing: 12) {
+                            GridRow {
+                                DeviceCard(name: "Nest Wifi", state: "Connected", icon: "wifi", color: .blue)
+                                DeviceCard(name: "Sony TV", state: "On • Standby", icon: "tv", color: .purple)
+                                DeviceCard(name: "Theromastat", state: "Cooling to 26°", icon: "snowflake", color: .blue)
+                                if isBig {
+                                    DeviceCard(name: "Air Purifier", state: "Off", icon: "leaf.fill", color: .green)
+                                }
+                            }
+                            .frame(height: 129)
+//                            .frame(height: isBig ? height3 : height3)
+                            GridRow {
+                                DeviceCard(name: "Air Purifier", state: "Off", icon: "leaf.fill", color: .green)
+                                DeviceCard(name: "HomePod", state: "Not Playing", icon: "homepod", color: .pink, size: .large)
+                                
+                            }
+                            .frame(height: 129)
+//                            .frame(height: isBig ? height3 : height3)
+
+                        }
+                    }
+                }
+                .padding(12)
+            }
         }
-//        .navigationTitle("Living Room")
+        .ignoresSafeArea(.all, edges: .bottom)
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 Button("EDIT"){}
             }
-            ToolbarItem {
-                Text("test")
-            }
         }
+    }
+}
+
+enum DeviceCardSize: Int {
+    case regular = 1
+    case large = 2
+    case extralarge = 3
+}
+
+struct DeviceCard: View {
+
+    var name: String
+    var state: String
+    var icon: String
+    var color: Color
+    var size: DeviceCardSize = .regular
+    
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack {
+                Rectangle()
+                    .foregroundColor(Color("ListBackground"))
+
+                VStack(alignment: .leading) {
+
+                    ZStack {
+                        Circle()
+                            .fill(color.gradient)
+                        Image(systemName: icon)
+                            .foregroundColor(.white)
+                    }.frame(width: 50, height: 50)
+                    Spacer()
+                    Text(name)
+                        .font(.headline)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+                    Text(state)
+                        .foregroundColor(.secondary)
+                        .font(.subheadline)
+                        .minimumScaleFactor(0.5)
+                        .lineLimit(1)
+
+                }
+                .padding(10)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                Text("\(Int(geometry.size.width))x\(Int(geometry.size.height))")
+                    .background(.red)
+            }
+            .cornerRadius(12)
+        }
+        .gridCellColumns(size.rawValue)
     }
 }
 
@@ -252,6 +340,7 @@ struct ItemDetailView: View {
                 Spacer()
             }
         }
+        .ignoresSafeArea(.all, edges: .vertical)
     }
 }
 
