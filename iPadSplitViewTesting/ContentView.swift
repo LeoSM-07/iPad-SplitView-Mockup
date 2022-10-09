@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-
-
-
+struct RoomItem: Hashable {
+    var name: String
+    var devices: [Device]
+}
 
 struct ScenesView: View {
     
@@ -83,15 +84,19 @@ struct ContentView: View {
 
     @State private var columnVisibility = NavigationSplitViewVisibility.all
 
+    @State var path: [RoomItem] = []
+
     var body: some View {
 
         NavigationSplitView(columnVisibility: $columnVisibility) {
-            SidebarView()
+            SidebarView(path: $path)
+        } content: {
+            Text("Pick a Room")
+                .navigationSplitViewColumnWidth(600)
         } detail: {
-            SplitDetailView(columnVisibility: $columnVisibility)
+            ItemDetailView()
 
         }
-
     }
 }
 
@@ -103,7 +108,10 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
+
+        #if os(iOS)
         ContentView()
             .previewInterfaceOrientation(.landscapeLeft)
+        #endif
     }
 }

@@ -16,8 +16,8 @@ struct SplitDetailView: View {
             let viewWidth = geometry.size.width
             HStack(spacing: 0) {
 
-                RoomDetialView(columnVisibility: $columnVisibility.animation(.spring()))
-                    .frame(width: viewWidth*1/2, height: geometry.size.height)
+//                RoomDetialView(columnVisibility: $columnVisibility.animation(.spring()))
+//                    .frame(width: viewWidth*1/2, height: geometry.size.height)
                 Divider()
                     .ignoresSafeArea()
                     .frame(maxHeight: .infinity )

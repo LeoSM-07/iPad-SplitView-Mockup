@@ -32,7 +32,7 @@ struct DeviceIcon: View {
                 .fill(device.color.gradient)
             Image(systemName: device.icon)
                 .foregroundColor(.white)
-        }.frame(width: 50, height: 50)
+        }.frame(width: 40, height: 40)
     }
 }
 

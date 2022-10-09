@@ -8,36 +8,43 @@
 import SwiftUI
 
 struct SidebarRoomsView: View {
-    @State var selection: Int = 3
+
+    @Binding var path: [RoomItem]
+
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            RoomRow(s: $selection, tag: 1, name: "Entrance")
-            RoomRow(s: $selection, tag: 2,name: "Backyard")
-            RoomRow(s: $selection, tag: 3,name: "Living Room")
-            RoomRow(s: $selection, tag: 4,name: "Hallway")
-            RoomRow(s: $selection, tag: 5,name: "Bedroom")
-            RoomRow(s: $selection, tag: 6,name: "Front Door")
+            RoomRow(path: $path, room: RoomItem(name: "Entrance", devices: []))
+            RoomRow(path: $path, room: RoomItem(name: "Backyard", devices: []))
+            RoomRow(path: $path, room: RoomItem(name: "Living Room", devices: [
+                Device(name: "Nest Wifi", state: "Connected", icon: "wifi", color: .blue),
+                Device(name: "Sony TV", state: "On • Standby", icon: "tv", color: .purple),
+                Device(name: "Couch Lamp", state: "On", icon: "lightbulb.fill", color: .yellow),
+                Device(name: "Air Purifier", state: "Off", icon: "leaf.fill", color: .green),
+                Device(name: "Living Room Sonos", state: "Not Playing", icon: "homepod", color: .pink, size: .large),
+            ]))
+            RoomRow(path: $path, room: RoomItem(name: "Hallway", devices: []))
+            RoomRow(path: $path, room: RoomItem(name: "Bedroom", devices: []))
+            RoomRow(path: $path, room: RoomItem(name: "Front Door", devices: []))
         }
         .frame(maxWidth: .infinity, alignment: .leading)
     }
 
     struct RoomRow: View {
-        @Binding var s: Int
-        var tag: Int
-        var name: String
+        @Binding var path: [RoomItem]
+        var room: RoomItem
         var active: Bool {
-            s == tag
+            path.last?.name == room.name
         }
 
         var body: some View {
 
-            Button {
-                s = tag
+            NavigationLink {
+                RoomDetialView(room: room)
             } label: {
                 HStack {
                     Image(systemName: active ? "square.split.bottomrightquarter.fill" : "square.split.bottomrightquarter")
                         .foregroundColor(active ? .white : Color("IconPrimary"))
-                    Text(name)
+                    Text(room.name)
                         .foregroundColor(active ? .white : Color("TextPrimary"))
                     Spacer()
                 }
@@ -46,11 +53,5 @@ struct SidebarRoomsView: View {
                 .cornerRadius(10)
             }
         }
-    }
-}
-
-struct SidebarRoomsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SidebarRoomsView()
     }
 }

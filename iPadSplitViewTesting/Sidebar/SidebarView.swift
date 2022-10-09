@@ -9,14 +9,14 @@ import SwiftUI
 
 struct SidebarView: View {
 
-    @State private var selection: String?
+    @Binding var path: [RoomItem]
 
     @State private var searchText: String = ""
 
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ZStack {
                 ScrollView {
 
@@ -31,12 +31,15 @@ struct SidebarView: View {
                     .padding(.horizontal)
 
                     Section() {
-                        SidebarRoomsView()
+                        SidebarRoomsView(path: $path)
                         Divider()
                             .padding(.bottom)
                             .foregroundColor(.red)
                     } header: {
-                        SidebarSectionHeaderView(headerText: "Rooms")
+//                        SidebarSectionHeaderView(headerText: "Rooms")
+                        Button("ROOMS") {
+                            print( path)
+                        }
                     }
                     .padding(.horizontal)
 
@@ -93,13 +96,17 @@ struct SidebarView: View {
                 .ignoresSafeArea(.all, edges: .bottom)
 
             }
+
+            .navigationDestination(for: RoomItem.self) { item in
+                RoomDetialView(room: item)
+            }
         }
     }
 }
 
-struct SidebarView_Previews: PreviewProvider {
-    static var previews: some View {
-        SidebarView()
-            .previewLayout(.fixed(width: 300, height: 800))
-    }
-}
+//struct SidebarView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SidebarView()
+//            .previewLayout(.fixed(width: 300, height: 800))
+//    }
+//}

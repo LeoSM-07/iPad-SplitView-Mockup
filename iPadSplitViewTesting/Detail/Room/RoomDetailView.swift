@@ -32,18 +32,12 @@ extension Collection where Indices.Iterator.Element == Index {
 
 struct RoomDetialView: View {
 
-    @Binding var columnVisibility: NavigationSplitViewVisibility
-    private var isBig: Bool {
-        columnVisibility == .detailOnly
-    }
+//    @Binding var columnVisibility: NavigationSplitViewVisibility
+//    private var isBig: Bool {
+//        columnVisibility == .detailOnly
+//    }
 
-    let devices: [Device] = [
-        Device(name: "Nest Wifi", state: "Connected", icon: "wifi", color: .blue),
-        Device(name: "Sony TV", state: "On • Standby", icon: "tv", color: .purple),
-        Device(name: "Couch Lamp", state: "On", icon: "lightbulb.fill", color: .yellow),
-        Device(name: "Air Purifier", state: "Off", icon: "leaf.fill", color: .green),
-        Device(name: "Living Room Sonos", state: "Not Playing", icon: "homepod", color: .pink, size: .large),
-    ]
+    var room: RoomItem
 
     var devicesList: [[Device]] {
         calcDeviceGrid()
@@ -56,12 +50,12 @@ struct RoomDetialView: View {
         var itemTotals: Int = 0
 
         // Calcuate Item Total
-        for item in devices {
+        for item in room.devices {
             itemTotals += item.size.rawValue
         }
 
         // Calculate Devices Spaced
-        for item in devices {
+        for item in room.devices {
             for _ in 1 ... item.size.rawValue {
                 devicesSpaced.append(item)
             }
@@ -95,50 +89,45 @@ struct RoomDetialView: View {
         return finalArray
     }
 
+    init(room: RoomItem) {
+        self.room = room
+    }
+
     var body: some View {
-        GeometryReader { geo in
-            ZStack{
-                Rectangle()
-                    .foregroundColor(Color("MainBackground"))
-                    .ignoresSafeArea()
-                VStack(spacing: 0) {
-                    Text("Living Room")
-                        .font(.largeTitle.bold())
-                        .frame(maxWidth: .infinity, alignment: .leading)
-                        .padding(.bottom, 10)
-                    ScrollView(showsIndicators: false) {
-                        HStack {
-                            Text("Accessories")
-                                .fontWeight(.medium)
-                            Spacer()
-                            Button{} label: {
-                                Image(systemName: "ellipsis")
-                                    .foregroundColor(Color("IconPrimary"))
-                            }
-                        }
 
-                        let height3 = abs(geo.size.width/3-16)
-                        let height4 = abs(geo.size.width/3-16)
-                        Grid(horizontalSpacing: 12, verticalSpacing: 12) {
-
-                            ForEach(devicesList, id: \.self) { deviceArray in
-                                GridRow {
-                                    ForEach(deviceArray.prefix(3)) { device in
-                                        DeviceCard(device: device)
-                                    }
-                                }
-                                .frame(height: isBig ? height4 : height3)
-                            }
-
-                        }
-                    }
+        ScrollView(showsIndicators: false) {
+            HStack {
+                Text("Accessories")
+                    .fontWeight(.medium)
+                Spacer()
+                Button{} label: {
+                    Image(systemName: "ellipsis")
+                        .foregroundColor(Color("IconPrimary"))
                 }
-                .padding(12)
             }
+            GeometryReader { geo in
+                let height3 = abs(geo.size.width/3-16)
+//                let height4 = abs(geo.size.width/3-16)
+                Grid(horizontalSpacing: 12, verticalSpacing: 12) {
+
+                    ForEach(devicesList, id: \.self) { deviceArray in
+                        GridRow {
+                            ForEach(deviceArray.prefix(3)) { device in
+                                DeviceCard(device: device)
+                            }
+                        }
+                        .frame(height: height3)
+                    }
+
+                }
+            }
+
         }
-        .ignoresSafeArea(.all, edges: .bottom)
+        .padding(.horizontal, 12)
+        .background(Color("MainBackground"))
+        .navigationTitle(room.name)
         .toolbar {
-            ToolbarItem(placement: .navigationBarLeading) {
+            ToolbarItem(placement: .navigationBarTrailing) {
                 Button("EDIT"){}
             }
         }
